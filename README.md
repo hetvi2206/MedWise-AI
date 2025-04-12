@@ -25,11 +25,13 @@ MedWise-AI is a smart healthcare assistant designed to provide preliminary healt
 
 ## 🏗️ Tech Stack
 
-| Area | Technology |
-|------|------------|
-| Backend | Python, Flask |
-| Frontend | HTML, CSS, JavaScript |
-| NLP | Custom drug name extraction using NLP |
+| Area      | Technology                                   |
+|-----------|----------------------------------------------|
+| Backend   | Python, Flask                               |
+| Frontend  | HTML, CSS, JavaScript                       |
+| NLP       | Custom drug name extraction using NLP       |
+| OCR       | EasyOCR                                      |
+
 
 ---
 
