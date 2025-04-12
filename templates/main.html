@@ -1,184 +1,167 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap & jQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
+    
+    <!-- Intro.js (For guided walkthroughs) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.min.js" type="text/javascript"></script>
-    <script src="static/b-typeahead.min.js" type="text/javascript"></script>
+
+    <!-- Custom styles and scripts -->
+    <script src="static/b-typeahead.min.js"></script>
     <link rel="stylesheet" href="static/styles.css"/>
-    <script type="text/javascript" src="static/scripts.js"></script>
-    <!-- Add Tesseract.js for OCR -->
-    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@2.1.1"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="static/scripts.js" defer></script>
 
     <title>MedWise-AI</title>
-  </head>
+</head>
 
-  <body>
-    <nav class="navbar sticky-top navbar-dark bg-dark shadow">
-      <a class="navbar-brand text-white" id="go-to-top"><b> MedWise - A I </b></a>
-      <form data-step="6" data-intro="Sync with google for additional functions" class="form-inline my-2 my-lg-0">
-        <button class="btn btn-warning text-white mr-sm-1" id="authorize_button"><b> Log In </b></button>
-        <button class="btn btn-danger text-white mr-sm-1" id="signout_button" style="display: none;"><b> Log Out </b></button>
-        <a class="btn btn-warning text-white mr-sm-0" onclick="introJs().start();"><b> Help </b></a>
-      </form>
+<body class="bg-light">
+
+   <!-- Navigation Bar -->
+   <nav class="navbar sticky-top shadow navbar-expand-lg" style="background: linear-gradient(to right, #2c3e50, #34495e);">
+        <a class="navbar-brand text-white font-weight-bold" id="go-to-top" style="font-family: 'Poppins', sans-serif; font-size: 24px;">
+        MedWise - A I
+        </a>
+        <div class="ml-auto d-flex align-items-center">
+            <a href="/login" class="btn btn-light text-primary font-weight-bold mr-2" style="border-radius: 20px; font-family: 'Poppins', sans-serif;">
+            Log In
+            </a>
+                <button class="btn btn-outline-light font-weight-bold mr-2" id="signout_button" style="display: none; border-radius: 20px;">
+                    Log Out
+                </button>
+            <a class="btn btn-warning text-white font-weight-bold" onclick="startHelp();" style="border-radius: 20px;">
+                Help
+            </a>
+        </div>
     </nav>
 
     <br/><br/>
 
-    <h1 id="slogan" class="text-white" style="text-align: center; text-shadow: 0 0 20px #000000; font-family: monospace;"><b> Let's cure that illness with A.I !</b></h1>
+    <h1  class="text-dark text-center" style="font-family: Poppins, sans-serif;">
+        <b> Let's cure that illness with A.I! </b>
+    </h1>
 
     <br/><br/>
 
-    <div class="card w-75 h-100 center text-center shadow p-3 mb-5 bg-white rounded" id="sbox">
-      <div class="card-body">
-        <form id="send" action="" method="">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="input-group mb-3">
-                <!-- <div class="input-group-prepend">
-                  <span class="input-group-text">Image</span>
-                </div> -->
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-sm-6">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">Decode prescriptions</h5>
-                  <p class="card-text">Can't understand or remember when to take your medicines ? Just upload a pic of your prescription and we'll sort everything out for you </p>
-                  <br/>
-                  <div class="container">
-                    <form method="post" action="" enctype="multipart/form-data" id="myform">
-                      <div>
-                        <input data-step="1" data-intro="Attach an image of your prescription here" type="file" id="file" name="file" />
-                        <br/><br/><br/>
-                        <button data-step="2" data-intro="Upload and wait.." type="button" class="btn btn-warning" id="but_upload" style="height:50px;width:200px;">Scan Prescription</button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">Look For a Disease</h5>
-                  <p class="card-text">Feeling unwell ? Don't worry, just tell us your symptoms and our AI will find out what's wrong.</p>
-                  <br>
-                  <div data-step="3" data-intro="Enter your symptoms" class="input-group mb-3">
-                    <input type="text" class="form-control typeahead" id="symptom" placeholder="Symptoms" aria-label="Symptoms" aria-describedby="basic-addon2" autocomplete="off" data-provide="typeahead">
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-secondary" data-step="4" data-intro="Add any number of symptoms" onclick="appendSymp();" type="button">Add</button>
+    <!-- Main Card Box -->
+    <div class="card w-75 mx-auto text-center shadow p-3 mb-5 rounded" id="sbox" style="
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+        ">
+        <div class="card-body">
+            <form id="send" action="" method="">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="card h-100" style="
+                            background: rgba(255, 255, 255, 0.2);
+                            backdrop-filter: blur(10px);
+                            -webkit-backdrop-filter: blur(10px);
+                            border: 1px solid rgba(255, 255, 255, 0.3);
+                            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+                            ">
+                            <div class="card-body">
+                                <h5 class="card-title">Decode prescriptions</h5>
+                                <p class="card-text">
+                                    Can't understand or remember when to take your medicines? Just upload a picture of your prescription and we'll sort everything out for you.
+                                </p>
+                                <br/>
+                                <div class="container">
+                                    <form method="post" enctype="multipart/form-data" id="myform">
+                                        <div>
+                                            <input type="file" id="file" name="file"/>
+                                            <br/><br/><br/>
+                                            <button type="button" class="btn btn-warning" id="but_upload" style="height:50px;width:200px;">Scan Prescription</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                  <div id="tags"></div>
-                  <br>	
-                  <button data-step="5" data-intro="Upload and wait.." type="button" class="btn btn-warning" id="symp_upload" style="height:50px;width:200px;">Find Out</button>
+                
+                    <div class="col-sm-6">
+                        <div class="card h-100" style="
+                            background: rgba(255, 255, 255, 0.2);
+                            backdrop-filter: blur(10px);
+                            -webkit-backdrop-filter: blur(10px);
+                            border: 1px solid rgba(255, 255, 255, 0.3);
+                            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+                            ">
+                            <div class="card-body">
+                                <h5 class="card-title">Look For a Disease</h5>
+                                <p class="card-text">Feeling unwell? Don't worry, just tell us your symptoms and our AI will find out what's wrong.</p>
+                                <br>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control typeahead" id="symptom" placeholder="Symptoms" autocomplete="off">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" onclick="appendSymp();" type="button">Add</button>
+                                    </div>
+                                </div>
+                                <div id="tags-container">
+                                    <div id="tags"></div> <!-- Symptoms will be added here -->
+                                </div>
+                                <br>    
+                                <button type="button" class="btn btn-warning" id="find_out" style="height:50px;width:200px;">Find Out</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>  
-
-    <br/>
-
-    <div id="details" class="center text-center">
-      <h3 class="boxy">Please answer the following questions.</h3>
+            </form>
+        </div>
     </div>
 
     <br/>
 
+    <!-- Symptom Suggestion Section -->
+    <div id="details" class="center text-center" style="font-family: Aldrich, sans-serif;">
+        <h2 class="boxy">Please answer the following questions.</h3>
+    </div>
+
+    <br/>
+
+    <!-- Dynamic Cards for Symptom Suggestions -->
     <div id="cards">
-      <div class="card w-75 center text-center shadow p-3 mb-5 bg-white rounded boxy" id="'+name+'">
+        <!-- Symptoms will be dynamically inserted here -->
+    </div>
+
+    <!-- "Your Symptoms" card is hidden by default and only appears after clicking "Find Out" -->
+    <div class="card w-75 center text-center shadow p-3 mb-5 rounded boxy"
+        id="your-symptoms-card" style="
+        display: none;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+        ">
         <div class="card-body">
-          <p class="card-title">Do you have/feel ?</p>
-          <h5 class="card-text">'+name+'</h5>
-          <a class="btn btn-success" onclick="appendNewSymp(' + name + ');"> YES </a>
-          <a class="btn btn-danger" onclick="appendNewSymp(null);"> NO </a>
-        </div>
-      </div>
-      <div class="card w-75 center text-center shadow p-3 mb-5 bg-white rounded boxy" id="'+name+'">
-        <div class="card-body">
-          <p class="card-title">Your symptoms</p>
-          <h5 class="card-text" id="positive"></h5>
+            <p class="card-title">Your symptoms</p>
+            <h5 class="card-text" id="positive"></h5> <!-- Symptoms will be added here -->
         </div>
         <button type="button" id="disease" class="btn btn-warning btn-lg">SEARCH</button>
-      </div>
     </div>
 
-    <script src="static/symptomsdata.js" type="text/javascript"></script>
 
-    <script type="text/javascript">
-      var symps = []; // Array to hold the symptoms
+    <br/>
 
-      // Append symptom to the list
-      function appendSymp() {
-        var symptom = $("#symptom").val();
-        if (symptom) {
-          symps.push(symptom);
-          $("#tags").append("<span class='badge badge-primary'>" + symptom + "</span> ");
-          $("#symptom").val(""); // Clear input
-        }
-      }
+    <!--Google Calendar Integration-->
+    <script src="static/symptomsdata.js"></script>
 
-      // Handle 'Scan Prescription' button click
-      $("#but_upload").click(function() {
-        var fd = new FormData();
-        var files = $('#file')[0].files[0];
-
-        if (files == undefined) {
-          alert("Please insert an image");
-        } else {
-          fd.append('file', files);
-          $("#details").append('<div class="spinner-border" style="width: 3rem; height: 3rem;" role="status"> <span class="sr-only">Loading...</span></div>');
-          $.ajax({
-            url: '/image',  // Ensure this is the correct URL for your backend
-            type: 'post',
-            data: fd,
-            contentType: false,
-            processData: false,
-            success: function(response) {
-              console.log(response);
-              RecieveFunc(response);
-            },
-            error: function(xhr, status, error) {
-              console.error("AJAX Error: " + status + " - " + error);
-              alert("Error in AJAX request");
-            }
-          });
-        }
-      });
-
-      // Handle 'Find Out' button click
-      $("#symp_upload").click(function() {
-        console.log(symps);  // Check if symptoms are collected
-        $.ajax({
-          url: '/disease',  // Ensure the backend route is correct
-          type: 'post',
-          data: JSON.stringify({ 'symptoms': symps }),
-          dataType: 'JSON',
-          contentType: "application/json",
-          success: function(response) {
-            console.log(response);  // Check the server's response
-            SymFunc(response);
-          },
-          error: function(xhr, status, error) {
-            console.error("AJAX Error: " + status + " - " + error);
-            alert("Error in submitting symptoms");
-          }
-        });
-      });
+    <!-- Google API -->
+    <script async defer src="https://apis.google.com/js/api.js"
+        onload="this.onload=function(){};handleClientLoad()"
+        onreadystatechange="if (this.readyState === 'complete') this.onload()">
     </script>
 
-  </body>
+</body>
 </html>
